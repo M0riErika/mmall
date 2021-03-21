@@ -161,4 +161,8 @@
     where username=#{username}
     and password=#{password}
   </select>
+  <select id="checkEmail" parameterType="String" resultType="int">
+    select count(1) from mmall_user
+    where email=#{email}
+  </select>
 </mapper>

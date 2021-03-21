@@ -35,4 +35,24 @@ public class UserController {
         }
         return response;
     }
+
+    @RequestMapping(value="logout.do",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<String> Logout(HttpSession session){
+        session.removeAttribute(Const.CURRENT_USER);
+        return ServerResponse.createBySuccess();
+    }
+
+    @RequestMapping(value="register.do",method = RequestMethod.GET)
+    @ResponseBody
+    public ServerResponse<String> Register(User user){
+        return iUserService.register(user);
+    }
+
+    @RequestMapping(value="check_valid.do",method = RequestMethod.GET)
+    @ResponseBody
+    //校验用户名和email是否存在，这个校验是当用户注册输入完用户名和email，要实时反馈输入用户名和email是否可用
+    public ServerResponse<String> checkValid(String str, String type){
+        return iUserService.checkValid(str,type);
+    }
 }
