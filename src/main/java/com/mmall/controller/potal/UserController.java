@@ -83,4 +83,13 @@ public class UserController {
     public ServerResponse<String> forgetResetPassword(String username,String passwordNew,String forgetToken){
         return iUserService.forgetResetPassword(username,passwordNew,forgetToken);
     }
+
+    public ServerResponse<String> resetPassword(HttpSession session, String passwordNew, String passwordOld){
+        User user=(User)session.getAttribute(Const.CURRENT_USER);
+        if (user==null){
+            ServerResponse.createByErrorMessage("用户未登录");
+        }
+        return iUserService.resetPassword(passwordNew,passwordOld,user);
+
+    }
 }
